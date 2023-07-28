@@ -18,9 +18,10 @@ from carts.models import Cart, CartItem
 import requests
 #dashboard
 from orders.models import Order
+from django.views.decorators.csrf import csrf_exempt
 
 
-
+@csrf_exempt
 def register(request):
     if request.method == 'POST':
         email = request.POST['email']
@@ -73,6 +74,8 @@ def register(request):
         }
     return render(request,'accounts/register.html', context)
 
+
+@csrf_exempt
 def login(request):
     if request.method == 'POST':
         email = request.POST ['email']
@@ -110,7 +113,7 @@ def login(request):
     return render(request,'accounts/login.html')
 
 
-
+@csrf_exempt
 @login_required(login_url = 'login')
 def logout(request):
     auth.logout(request)
@@ -144,7 +147,7 @@ def dashboard(request):
     }
     return render (request,'accounts/dashboard.html',context)
 
-
+@csrf_exempt
 def forgotPassword(request):
     if request.method == 'POST':
         email = request.POST['email']
@@ -168,7 +171,7 @@ def forgotPassword(request):
             return redirect('forgotPassword')
     return render(request, 'accounts/forgotPassword.html')
 
-
+@csrf_exempt
 def resetpassword_validate(request,uidb64,token):
     try:
         uid = urlsafe_base64_decode(uidb64).decode()
@@ -183,7 +186,7 @@ def resetpassword_validate(request,uidb64,token):
         messages.error(request, 'link expired')
         return redirect ('login')
 
-
+@csrf_exempt
 def resetPassword(request):
     if request.method == 'POST':
         password = request.POST['password']
@@ -201,7 +204,8 @@ def resetPassword(request):
     else:
         return render(request,'Accounts/resetPassword.html')
     
-    
+
+@csrf_exempt
 def my_orders(request):
     orders = Order.objects.filter(user=request.user,is_ordered=True).order_by('-created_at')
     context = {
@@ -231,6 +235,7 @@ def edit_profile(request):
     }
     return render(request,'accounts/edit_profile.html',context)
 
+@csrf_exempt
 @login_required(login_url='login')
 def change_password(request):
     if request.method == 'POST':

@@ -6,11 +6,11 @@ from carts.views import _cart_id
 from django.http import HttpResponse
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import Q
-
+from django.views.decorators.csrf import csrf_exempt
 
 
 # Create your views here.
-
+@csrf_exempt
 def store(request,category_slug=None):
     categories = None
     products = None
@@ -40,7 +40,7 @@ def store(request,category_slug=None):
 
 
 #for_product_details
-
+@csrf_exempt
 def product_detail(request,category_slug,product_slug):
     try:
         single_product = Product.objects.get(category__slug=category_slug,slug=product_slug)

@@ -3,12 +3,13 @@ from store.models import Product
 from .models import Cart,CartItem
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 
 
 
 
 # Create your views here.
-
+@csrf_exempt
 def _cart_id(request):
     cart = request.session.session_key
     if not cart :
@@ -64,6 +65,7 @@ def add_cart(request, product_id):
             cart_item.save()
     return redirect("cart")
 
+@csrf_exempt
 def remove_cart(request,product_id,cart_item_id):
     product = get_object_or_404(Product,id=product_id)
     try:
@@ -81,7 +83,7 @@ def remove_cart(request,product_id,cart_item_id):
         pass
     return redirect('cart')
 
-
+@csrf_exempt
 def remove_cart_item(request, product_id,cart_item_id):
     product = get_object_or_404(Product,id=product_id)
     if request.user.is_authenticated:
@@ -92,7 +94,7 @@ def remove_cart_item(request, product_id,cart_item_id):
     cart_item.delete()
     return redirect('cart')
 
-
+@csrf_exempt
 def cart(request,total=0,quantity=0,cart_items=None):
     try:
         tax= 0
@@ -120,7 +122,7 @@ def cart(request,total=0,quantity=0,cart_items=None):
 
     return render (request,'store/cart.html',context)
 
-
+@csrf_exempt
 @login_required(login_url='login')
 def checkout(request,total=0, quantity=0, cart_items=None):
     try:
