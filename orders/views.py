@@ -10,6 +10,8 @@ from django.shortcuts import get_object_or_404
 from carts.models import Product
 from django.db import transaction
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
 @csrf_exempt
@@ -87,7 +89,9 @@ def place_order(request, total=0, quantity=0):
 
 
 @csrf_exempt
+@login_required
 def success(request):
+    user = request.user
     razorpay_payment_id = request.GET.get("razorpay_payment_id")
     razorpay_order_id = request.GET.get("razorpay_order_id")
     amount_paid = request.GET.get("amount_paid")
@@ -97,12 +101,13 @@ def success(request):
       
           # Storing Transaction Details In Payment Model
     payment = Payment.objects.create(
-            user=request.user,
+            user=user,
             razorpay_payment_id=razorpay_payment_id,
             amount_paid=amount_paid,
             razorpay_status='Success',
             razorpay_order_id=razorpay_order_id
     )
+    print(user)
     payment.save()
     try:
         order = Order.objects.get( user_id=request.user.id, is_ordered=False ,order_number=order_number)
