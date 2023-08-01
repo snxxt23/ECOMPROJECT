@@ -68,23 +68,23 @@
                                                 <tr>
                                                     <td>{{item.product.product_name}}</td>
                                                     <td class="text-center">{{item.quantity}}</td>
-                                                    <td class="text-center">${{item.product_price}}</td>
+                                                    <td class="text-center">₹{{item.product_price}}</td>
                                                 </tr>
                                             {% endfor %}
                                             </tbody>
                                             <tfoot>
                                                 <tr>
                                                     <th colspan="2" class="text-right">Sub Total:</th>
-                                                    <th class="text-center">${{sub_total}} USD</th>
+                                                    <th class="text-center">₹{{sub_total}} RUPEE</th>
                                                 </tr>
                                                 <tr>
                                                     <th colspan="2" class="text-right">Tax:</th>
-                                                    <th class="text-center">${{order.tax}} USD</th>
+                                                    <th class="text-center">₹{{order.tax}} RUPEE</th>
                                                 </tr>
                                                 
                                                 <tr>
                                                     <th colspan="2" class="text-right">Grand Total:</th>
-                                                    <th class="text-center">${{order.order_total}} USD</th>
+                                                    <th class="text-center">₹{{order.order_total}} RUPEE</th>
                                                 </tr>
                                             </tfoot>
                                     </table>
