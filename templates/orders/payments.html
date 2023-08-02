@@ -114,7 +114,7 @@
                 var order_number = "{{ order_number }}";
 
 
-                var redirectUrl = 'http://127.0.0.1:8000/orders/success/?razorpay_payment_id='+razorpay_payment_id + '&razorpay_order_id='+razorpay_order_id+'&amount_paid='+{{grand_total}}+'&order_number='+order_number;
+                var redirectUrl = 'https://iplanet.website/orders/success/?razorpay_payment_id='+razorpay_payment_id + '&razorpay_order_id='+razorpay_order_id+'&amount_paid='+{{grand_total}}+'&order_number='+order_number;
                 window.location.href = redirectUrl;
             },
             "theme": {
