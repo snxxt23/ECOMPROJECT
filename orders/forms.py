@@ -14,4 +14,4 @@ class OrderForm(forms.ModelForm):
             'address_line_2': forms.TextInput(attrs={'required': False}),
             'order_note': forms.Textarea(attrs={'required': False}),
         }
-        
+
