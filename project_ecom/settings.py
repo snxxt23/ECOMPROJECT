@@ -30,6 +30,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['iplanet.website','16.171.177.166','*']
 
+CSRF_TRUSTED_ORIGINS =['https://iplanet.website']
+
 
 # Application definition
 
